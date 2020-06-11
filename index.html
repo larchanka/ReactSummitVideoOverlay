@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="./stylesheet.css" rel="stylesheet">
+  <script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+  <script src="https://momentjs.com/downloads/moment-timezone-with-data.js"></script>
+</head>
+
+<style>
+  body {
+    padding: 0;
+    margin: 0;
+    font-size: 28px;
+    font-family: 'Gotham Pro', 'Times New Roman';
+    background-color: #ddd;
+  }
+
+  .screen {
+    width: 1920px;
+    height: 1080px;
+    position: relative;
+  }
+
+  .city {
+    background: #fff;
+    color: #000;
+    position: absolute;
+    padding: 0 15px;
+    text-transform: uppercase;
+    top: 90px;
+    right: 100px;
+    line-height: 50px;
+    height: 50px;
+    border-right: 5px solid #d9fe2a;
+  }
+
+  .time {
+    background: #000;
+    color: #fff;
+    position: absolute;
+    padding: 0 15px;
+    text-transform: uppercase;
+    line-height: 50px;
+    height: 50px;
+    top: 140px;
+    right: 100px;
+    border-right: 5px solid #d9fe2a;
+  }
+
+  .twitter {
+    background: #000;
+    color: #02a0ea;
+    position: absolute;
+    padding: 0 15px;
+    text-transform: uppercase;
+    line-height: 50px;
+    height: 50px;
+    top: 40px;
+    right: 100px;
+    border-right: 5px solid #d9fe2a;
+  }
+
+  img, span {
+    border: 0;
+    vertical-align: middle;
+  }
+</style>
+<body>
+
+  <div class="screen">
+    <div class="twitter" id="twitter">
+      <img src="twitter.png" width="25" />
+      <span>#REACTSUMMIT</span>
+    </div>
+    <div class="city" id="city"></div>
+    <div class="time" id="time"></div>
+  </div>
+  
+
+  <script>
+    const CITIES = [
+      {
+        name: 'Amsterdam',
+        timezone: 'Europe/Amsterdam',
+      },
+      // {
+      //   name: 'Berlin',
+      //   timezone: 'Europe/Berlin',
+      // },
+      // {
+      //   name: 'London',
+      //   timezone: 'Europe/London',
+      // },
+      // {
+      //   name: 'Warsaw',
+      //   timezone: 'Europe/Warsaw',
+      // },
+      // {
+      //   name: 'New York',
+      //   timezone: 'America/New_York',
+      // },
+      // {
+      //   name: 'San Francisco',
+      //   timezone: 'America/San_Francisco',
+      // },
+      // {
+      //   name: 'Seattle',
+      //   timezone: 'America/Seattle',
+      // },
+      // {
+      //   name: 'Toronto',
+      //   timezone: 'America/Toronto',
+      // },
+      // {
+      //   name: 'Bangalore',
+      //   timezone: 'India/Bangalore',
+      // },
+    ];
+
+    let CURRENT_CITY = -1;
+
+    const showNextCity = () => {
+      let nextCity = CURRENT_CITY + 1;
+
+      if (!CITIES[nextCity]) {
+        nextCity = 0;
+      }
+
+      const city = CITIES[nextCity];
+      CURRENT_CITY = nextCity;
+
+      console.log(city)
+
+      document.getElementById('city').innerText = city.name;
+      document.getElementById('time').innerText = moment().tz(city.timezone).format('LT');
+    }
+
+    showNextCity();
+
+    setInterval(showNextCity, 10 * 1000);
+  </script>
+</body>
+</html>
